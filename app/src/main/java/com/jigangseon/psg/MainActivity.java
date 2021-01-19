@@ -1,4 +1,4 @@
-package com.example.psg;
+package com.jigangseon.psg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
