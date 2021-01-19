@@ -1,6 +1,15 @@
 <resources>
+    <!--상군-->
     <string name="app_name">PSG</string>
     <string name="loading_1">우리 지역은?</string>
     <string name="loading_2">포세권</string>
     <string name="loading_3">Team 지강선</string>
+
+
+    <!--한강-->
+    <string name="kakao_app_key">42a535eb5f39c2cb3af84899f11a6898</string>
+    <string name="Nologin"><u>로그인없이 이용하기</u></string>
+    <string name="emaillogin">이메일 로그인</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
 </resources>
