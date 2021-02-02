@@ -12,11 +12,12 @@
     <string name="emaillogin">이메일 로그인</string>
     <string name="email">이메일</string>
     <string name="password">비밀번호</string>
-    
+
     <!-- 선래 -->
     <string name="sign_up_main_info_text1">로그인하고</string>
     <string name="sign_up_main_info_text2">함께 포장마차 즐기기!</string>
     <string name="sign_up_main_sign_up_button_text">로그인 하기</string>
     <string name="sign_up_main_sign_in_button_text">회원가입하기</string>
-    <string name="sign_up_main_sign_in_guest_text">로그인없이 이용하기</string>
+    <string name="sign_up_main_sign_in_guest_text"><u>로그인없이 이용하기</u></string>
+    <string name="mypage_profile_edit_text"><u>프로필 편집하기</u></string>
 </resources>

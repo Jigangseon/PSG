@@ -3,7 +3,6 @@
     package="com.jigangseon.psg">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -14,15 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PSG">
-        <activity android:name=".SignUpMain"></activity>
-        <activity android:name=".Sign_up_kakao" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <meta-data android:name="com.kakao.sdk.AppKey" android:value="18d9fb8997463f066f019f1ee7b56abf"/> -->
+        </activity>
+        <activity android:name=".MyPageActivity">
+            <!--
+                <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".SignUpMain" />
+        <activity android:name=".Sign_up_kakao" />
+        <activity android:name=".MainActivity"></activity> <!-- <meta-data android:name="com.kakao.sdk.AppKey" android:value="18d9fb8997463f066f019f1ee7b56abf"/> -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
