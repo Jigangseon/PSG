@@ -11,4 +11,7 @@
     <!-- 선래 -->
     <color name="pink_1">#FFD280D3</color>
     <color name="pink_2">#FFA607A9</color>
+
+    <!--한강 이전에 미추가한 부분-->
+    <color name="emaillogin">#D280D3</color>
 </resources>
