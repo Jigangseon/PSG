@@ -4,93 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity"
-    android:id="@+id/chat_drawer">
+    tools:context=".chat.ChatActivity"
+    android:id="@+id/drawer_layout">
 
-    <!-- 채팅창 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/chat_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="60dp"/>
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- 툴바 구분선 -->
-        <View
-            android:id="@+id/chat_view_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/black"
-            android:layout_below="@+id/chat_toolbar"/>
-
-        <!-- 툴바 레이아웃 -->
         <include
             layout="@layout/chat_toolbar"
-            android:id="@+id/chat_toolbar"/>
+            android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </RelativeLayout>
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="60dp"
+            android:background="@drawable/chat_border">
 
-    <!-- 사이드 메뉴 레이아웃 -->
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="닉네임"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="접속"
+                android:onClick="btnMethod"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/chat_nav_view"
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:fitsSystemWindows="true">
 
-        <ScrollView
-            android:id="@+id/scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!-- 헤더 레이아웃 (가로배치) -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <!-- 음식 사진 -->
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/profile"/>
-
-                    <!-- 음식 이름 -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="떡볶이"/>
-                </LinearLayout>
-
-                <!-- 헤더 구분선 -->
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"/>
-
-                <!-- 채팅방 접속자 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="계정1"
-                    android:textSize="24dp"
-                    android:layout_marginVertical="10dp"/>
-            </LinearLayout>
-        </ScrollView>
-
-        <!-- 사이드 메뉴 하단 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,8 +89,11 @@
                 android:text="채팅방 나가기"
                 android:textColor="@color/white"
                 android:layout_marginHorizontal="10dp"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:clickable="true"
+                android:onClick="exitChatRoom"/>
         </LinearLayout>
+
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
