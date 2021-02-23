@@ -15,15 +15,19 @@
         android:theme="@style/Theme.PSG">
         <meta-data android:name="com.naver.maps.map.CLIENT_ID"
             android:value="vs2pmq8hav"/>
-        <activity android:name=".find.MainActivity">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+        <activity android:name=".MapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".find.MainActivity">
+
         </activity>
         <activity android:name=".search.Search">
-        <!--    <intent-filter>
+       <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,7 +51,9 @@
         </activity>
         <activity android:name=".SignUpMain" />
         <activity android:name=".Sign_up_kakao" />
-        <activity android:name=".MainActivity"></activity> <!-- <meta-data android:name="com.kakao.sdk.AppKey" android:value="18d9fb8997463f066f019f1ee7b56abf"/> -->
+        <activity android:name=".MainActivity">
+
+        </activity> <!-- <meta-data android:name="com.kakao.sdk.AppKey" android:value="18d9fb8997463f066f019f1ee7b56abf"/> -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

@@ -1,5 +1,6 @@
 package com.jigangseon.psg.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.jigangseon.psg.MapActivity;
 import com.jigangseon.psg.subway_line.*;
 import com.jigangseon.psg.R;
 import java.util.ArrayList;
@@ -91,9 +93,15 @@ public class Search extends AppCompatActivity {
 
         }
         //차후에 초기화면일때 뒤로가기 버튼을 누르면 페이지 이동하게 만들면 된다.
-        else{/*
-            Inflater inflater = new Inflater(R.layout.)*/
+        else if(i == 0 ){
+            removeFragment(subway_fragment);
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
+            i=0;
+
+
         }
+
     }
 
     //버튼 클릭 메소드
@@ -227,17 +235,6 @@ public class Search extends AppCompatActivity {
         }
 
     }
-
-    public void initializeData()
-    {
-        imageList = new ArrayList();
-
-        imageList.add(R.drawable.hodduk);
-        imageList.add(R.drawable.fish_shaped);
-        imageList.add(R.drawable.jun);
-        imageList.add(R.drawable.tteokbokki);
-    }
-
 
 
 }

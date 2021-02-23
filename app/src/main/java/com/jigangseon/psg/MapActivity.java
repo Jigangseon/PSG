@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
+import com.jigangseon.psg.search.*;
 
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback  {
@@ -78,7 +79,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
 
 
         // 네이버 지도
@@ -278,8 +279,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-//    public void searchView(View v){  // 검색창
-//        Intent intent = new Intent(this, SearchActivity.class);
-//        startActivity(intent);
-//    }
+    public void searchView(View v){  // 검색창
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
 }

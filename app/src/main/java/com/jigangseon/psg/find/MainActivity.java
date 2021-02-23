@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.jigangseon.psg.R;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {

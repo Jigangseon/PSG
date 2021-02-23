@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.jigangseon.psg.R;
@@ -16,47 +18,58 @@ public class Subway_fragment extends Fragment {
 
 
   int i=0;
-    private ArrayList<Integer> imageList;
-    ViewPager viewPager;
-    private static final int DP = 24;
+  ViewPager viewPager;
+  Button left_arrow, right_arrow;
 
-    public Subway_fragment(){
+  public Subway_fragment(){
 
-    }
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-
-        View view = inflater.inflate(R.layout.fragment_subway,container,false);
-       /* ViewPager viewPager = view.findViewById(R.id.viewPager);
-        viewPager.setClipToPadding(false);
-
-        float density = getResources().getDisplayMetrics().density;
-        int margin = (int) (DP * density);
-        viewPager.setPadding(margin, 0, margin, 0);
-        viewPager.setPageMargin(margin/2);
-
-        viewPager.setAdapter(new Subway_ViewPagerAdapter(getContext(), imageList));*/
+  }
 
 
 
 
-        return view;
-    }
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_subway, container, false);
+    viewPager=(ViewPager)view.findViewById(R.id.viewPager);
+    Subway_ViewPagerAdapter viewPagerAdapter = new Subway_ViewPagerAdapter(getContext());
+    viewPager.setAdapter(viewPagerAdapter);
+    left_arrow= view.findViewById(R.id.left_arrow);
+    right_arrow= view.findViewById(R.id.right_arrow);
 
+    left_arrow.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        int currentPage = viewPager.getCurrentItem();
+        viewPager.setCurrentItem(currentPage-1, true);
+        if(currentPage ==0){
+          currentPage = 3;
+          viewPager.setCurrentItem(currentPage,false);
 
-  /*  public void initializeData()
-    {
-        imageList = new ArrayList();
+        }
 
-        imageList.add(R.drawable.hodduk);
-        imageList.add(R.drawable.jun);
-        imageList.add(R.drawable.tteokbokki);
-        imageList.add(R.drawable.fish_shaped);
-    }*/
+      }
+    });
+    right_arrow.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        int currentPage = viewPager.getCurrentItem();
+        viewPager.setCurrentItem(currentPage+1, true);
+
+        if(currentPage==2){
+          currentPage = 0;
+          viewPager.setCurrentItem(currentPage, false);
+        }
+
+      }
+    });
+
+    return view;
+  }
 
 
 
 }
+
