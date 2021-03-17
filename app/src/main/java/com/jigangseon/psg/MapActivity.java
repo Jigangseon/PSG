@@ -167,6 +167,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     marker.setPosition(new LatLng(Double.parseDouble(obj.getString("store_latitude")), Double.parseDouble(obj.getString("store_longitude"))));
                     marker.setWidth(50);
                     marker.setHeight(70);
+                    marker.setCaptionText(obj.getString("store_category_id"));
                     marker.setOnClickListener(new Overlay.OnClickListener() {
                         @Override
                         public boolean onClick(@NonNull Overlay overlay) {
@@ -255,39 +256,86 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
-
-
     public void clickMenu(View view) { // 사이드 메뉴
         int id = view.getId();
         ConstraintLayout constraintLayout = findViewById(id);
 
-        switch (id) {
-            case R.id.side_menu1:
-                Toast.makeText(context, "첫번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu2:
-                Toast.makeText(context, "두번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu3:
-                Toast.makeText(context, "세번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu4:
-                Toast.makeText(context, "네번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu5:
-                Toast.makeText(context, "다섯번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu6:
-                Toast.makeText(context, "여섯번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu7:
-                Toast.makeText(context, "일곱번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.side_menu8:
-                Toast.makeText(context, "여덟번째메뉴", Toast.LENGTH_SHORT).show();
-                break;
 
-        }
+            String[] store_cate = new String[]{"붕어빵","호떡","떡볶이","다코야키","계란빵","전 등 포차메뉴","기타"};
+
+//            for (int i =0; i<markers.size();i++) {
+                switch (id) {
+                    case R.id.side_menu1:
+                        Toast.makeText(context, "함께 먹을 사람 찾기", Toast.LENGTH_SHORT).show();
+                        // 강이 레이아웃으로 인텐트
+                        break;
+
+                    case R.id.side_menu2:
+                        Toast.makeText(context, "붕어빵", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[0]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+
+                        break;
+                    case R.id.side_menu3:
+                        Toast.makeText(context, "호떡", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[1]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+                        break;
+
+                    case R.id.side_menu4:
+                        Toast.makeText(context, "떡볶이", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[2]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+                        break;
+
+                    case R.id.side_menu5:
+                        Toast.makeText(context, "다코야키", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[3]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+                        break;
+
+                    case R.id.side_menu6:
+                        Toast.makeText(context, "계란빵", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[4]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+                        break;
+
+                    case R.id.side_menu7:
+                        Toast.makeText(context, "전 등 포차 메뉴", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[5]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+                        break;
+
+                    case R.id.side_menu8:
+                        Toast.makeText(context, "기타", Toast.LENGTH_SHORT).show();
+                        for (int i=0; i < markers.size(); i++) {
+                            if (!(markers.get(i).getCaptionText().equals(store_cate[6]))) {
+                                markers.get(i).setVisible(false);
+                            }
+                        }
+                        break;
+
+                }
+
+//            }
     }
 
     public void searchView(View v){  // 검색창
