@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -383,7 +384,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void clickMenu(View view) { // 사이드 메뉴
         int id = view.getId();
-        ConstraintLayout constraintLayout = findViewById(id);
+        LinearLayout linearLayout = findViewById(id);
 
                 switch (id) {
                     //로그인쪽 누르는것
@@ -393,7 +394,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         startActivity(side_profile_layout);
                         break;
 
-                    case R.id.menu_together:
+                    case R.id.side_together:
                         Toast.makeText(context, "함께 먹을 사람 찾기", Toast.LENGTH_SHORT).show();
                         Intent side_menu1 = new Intent(this,MainActivity.class);
                         startActivity(side_menu1);
