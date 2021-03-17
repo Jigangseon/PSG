@@ -1,394 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
-
-    <!-- 프로필 이미지 -->
-
-    <!-- 프로필 이름 -->
-
-    <!-- 가로 선 -->
-
-    <!-- 메뉴 아이템 -->
-    <!-- 같이 먹을 사람 찾기 -->
-
-    <!-- 붕어빵 -->
-
-    <!-- 호떡 -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <LinearLayout
         android:id="@+id/side_profile_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/side_profile_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:clickable="true"
         android:onClick="clickMenu"
-        app:layout_constraintVertical_bias="1.0">
-
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="30dp">
+        <!-- 아이콘 -->
         <ImageView
             android:id="@+id/side_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/user"/>
+        <!-- 프로필 이름 -->
         <TextView
             android:id="@+id/side_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
             android:text="로그인을 해주세요"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/side_profile"
-            tools:ignore="MissingConstraints" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:textSize="16dp"
+            android:layout_marginHorizontal="18dp"/>
+    </LinearLayout>
     <TextView
-        android:id="@+id/side_profile_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:text="로그인 없이도 둘러볼 수 있어요!"
-        android:textSize="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.228"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
+        android:textSize="12dp"
+        android:layout_marginHorizontal="38dp"
+        android:layout_marginTop="16dp"/>
+    <!-- 가로 선 -->
+    <View
         android:id="@+id/side_hr"
         android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"/>
+    <!-- 메뉴 아이템 -->
+    <!-- 같이 먹을 사람 찾기 -->
+    <LinearLayout
+        android:id="@+id/side_together"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/login_under_line"
-        app:layout_constraintBottom_toTopOf="@+id/side_menu1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu1"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="144dp"
+        android:orientation="horizontal"
         android:clickable="true"
         android:onClick="clickMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp">
         <ImageView
-            android:id="@+id/menu_item1"
+            android:id="@+id/menu_together"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/users"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:src="@drawable/users"/>
         <TextView
-            android:id="@+id/menu_item1_text"
+            android:id="@+id/menu_together_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:textSize="16dp"
             android:text="함께 먹을 사람 찾기"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginLeft="18dp"/>
+    </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu2"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu1"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item2_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="붕어빵"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu3"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu2"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item3_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="호떡"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu4"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu3"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item4_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="떡볶이"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu5"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu4"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item5_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="다코야키"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item5"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu6"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu5"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item6_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="계란빵"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item6"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu7"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu6"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item7_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="전 등 포차 메뉴"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item7"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/side_menu8"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="clickMenu"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu7"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/menu_item8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="40dp"
-            android:src="@drawable/empty_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/menu_item8_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="기타"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_item8"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/menu_side_text"
-        android:layout_width="wrap_content"
+    <CheckBox
+        android:id="@+id/side_menu_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginBottom="109dp"
-        android:text="가게 제보하고 기프티콘 받기!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/side_menu8"
-        app:layout_constraintVertical_bias="0.0" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="호떡"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="21dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/side_menu_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="붕어빵 / 잉어빵"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="21dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/side_menu_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="분식"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="21dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/side_menu_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="문어빵"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="21dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/side_menu_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="빵 종류"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="21dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/side_menu_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="전 등 포차 메뉴"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="18dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/side_menu_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="기타"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:paddingLeft="21dp"
+        android:onClick="onCheckBoxClicked"
+        android:checked="true"
+        />
+</LinearLayout>

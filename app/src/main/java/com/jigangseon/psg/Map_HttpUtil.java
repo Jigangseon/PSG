@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpUtil extends AsyncTask<String, Void, JSONArray> {
+public class Map_HttpUtil extends AsyncTask<String, Void, JSONArray> {
     @Override
     public JSONArray doInBackground(String... params) {
         JSONArray memberJsonArr = null; // Json 배열 객체 생성

@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.CheckBox;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -154,7 +154,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 String json = objectMapper.writeValueAsString(map);
 
-                HttpUtil util = new HttpUtil();
+                Map_HttpUtil util = new Map_HttpUtil();
                 util.execute(json);
 
                 JSONArray jsonArray = util.get();
@@ -251,100 +251,157 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onDestroy() { // 종료시 호출되는 메소드
         super.onDestroy();
 
+
     }
 
 
 
+    public void onCheckBoxClicked(View v){
+        boolean checked = ((CheckBox) v).isChecked();
+        String[] store_cate = new String[]{"호떡","붕어빵/잉어빵","떡볶이","문어빵","빵 종류","파전","기타"};
+        switch (v.getId()){
+            case R.id.side_menu_1:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "1 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                            if (markers.get(i).getCaptionText().equals(store_cate[0])) {
+                                markers.get(i).setVisible(true);
+                            }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[0])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
+            case R.id.side_menu_2:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "2 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[1])) {
+                            markers.get(i).setVisible(true);
+                        }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[1])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
 
+            case R.id.side_menu_3:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "3 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[2])) {
+                            markers.get(i).setVisible(true);
+                        }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[2])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
+
+            case R.id.side_menu_4:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "4 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[3])) {
+                            markers.get(i).setVisible(true);
+                        }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[3])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
+
+            case R.id.side_menu_5:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "5 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[4])) {
+                            markers.get(i).setVisible(true);
+                        }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[4])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
+
+            case R.id.side_menu_6:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "6 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[5])) {
+                            markers.get(i).setVisible(true);
+                        }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[5])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
+
+            case R.id.side_menu_7:
+                if (checked){
+                    Toast.makeText(getApplicationContext(), "7 checked", Toast.LENGTH_LONG).show();
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[6])) {
+                            markers.get(i).setVisible(true);
+                        }
+                    }
+                }else{
+                    for (int i=0; i < markers.size(); i++) {
+                        if (markers.get(i).getCaptionText().equals(store_cate[6])) {
+                            markers.get(i).setVisible(false);
+                        }
+                    }
+                }
+                break;
+        }
+    }
 
 
     public void clickMenu(View view) { // 사이드 메뉴
         int id = view.getId();
         ConstraintLayout constraintLayout = findViewById(id);
 
-            String[] store_cate = new String[]{"붕어빵","호떡","떡볶이","다코야키","계란빵","전 등 포차메뉴","기타"};
-
-//            for (int i =0; i<markers.size();i++) {
                 switch (id) {
                     //로그인쪽 누르는것
                     case R.id.side_profile_layout:
-                        Toast.makeText(context, "함께 먹을 사람 찾기", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "로그인 하기", Toast.LENGTH_SHORT).show();
                         Intent side_profile_layout = new Intent(this,LoginActivity.class);
                         startActivity(side_profile_layout);
                         break;
-                    case R.id.side_menu1:
+
+                    case R.id.menu_together:
                         Toast.makeText(context, "함께 먹을 사람 찾기", Toast.LENGTH_SHORT).show();
                         Intent side_menu1 = new Intent(this,MainActivity.class);
                         startActivity(side_menu1);
                         // 강이 레이아웃으로 인텐트
                         break;
 
-                    case R.id.side_menu2:
-                        Toast.makeText(context, "붕어빵", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[0]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-
-                        break;
-                    case R.id.side_menu3:
-                        Toast.makeText(context, "호떡", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[1]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-                        break;
-
-                    case R.id.side_menu4:
-                        Toast.makeText(context, "떡볶이", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[2]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-                        break;
-
-                    case R.id.side_menu5:
-                        Toast.makeText(context, "다코야키", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[3]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-                        break;
-
-                    case R.id.side_menu6:
-                        Toast.makeText(context, "계란빵", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[4]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-                        break;
-
-                    case R.id.side_menu7:
-                        Toast.makeText(context, "전 등 포차 메뉴", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[5]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-                        break;
-
-                    case R.id.side_menu8:
-                        Toast.makeText(context, "기타", Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < markers.size(); i++) {
-                            if (!(markers.get(i).getCaptionText().equals(store_cate[6]))) {
-                                markers.get(i).setVisible(false);
-                            }
-                        }
-                        break;
-
                 }
 
-//            }
     }
 
     public void searchView(View v){  // 검색창
