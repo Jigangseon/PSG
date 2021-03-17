@@ -97,7 +97,7 @@ public class Search extends AppCompatActivity {
             removeFragment(subway_fragment);
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
-            i=0;
+            finish();
 
 
         }

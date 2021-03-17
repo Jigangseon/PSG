@@ -187,7 +187,7 @@ public class ChatActivity extends AppCompatActivity {
         public void run() {
             try {
                 // 접속한다.
-                final Socket socket = new Socket("seonrae.kro.kr", 9898);
+                final Socket socket = new Socket("15.164.67.3", 9898);
                 member_socket=socket;
                 // 미리 입력했던 닉네임을 서버로 전달한다.
                 String nickName = edit1.getText().toString();

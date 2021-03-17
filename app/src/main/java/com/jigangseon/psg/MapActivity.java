@@ -1,24 +1,11 @@
 package com.jigangseon.psg;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.PointF;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,36 +13,43 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jigangseon.psg.search.Search;
 import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
-import com.naver.maps.map.overlay.Align;
-import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
-import com.naver.maps.map.overlay.PathOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.widget.CompassView;
-import com.naver.maps.map.widget.LocationButtonView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
-import com.jigangseon.psg.search.*;
+import java.util.concurrent.Executors;
 
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback  {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "MainActivity";
 
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -67,19 +61,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private FusedLocationSource mLocationSource;
     private NaverMap mNaverMap;
     private UiSettings uiSettings;
-    private Overlay overlay;
-
 
     private SlidingUpPanelLayout main_panel;
 
-    private DrawerLayout mDrawerLayout;
     private Context context = this;
 
+    private static JSONObject obj;
+
+//    MarkerList markerList = new MarkerList();
+//    List<Marker> markers = markerList.getMarkerList();
+    private JSONArray jsonArray;
+
+    private Marker marker;
+    private List<Marker> markers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
 
 
         // 네이버 지도
@@ -96,35 +96,37 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         main_panel = (SlidingUpPanelLayout)findViewById(R.id.main_panel);
 
-
-        // 드로어 레이아웃 (사이드 메뉴)
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        Button buttonOpen = (Button) findViewById(R.id.draw_side_menu_button) ;
-        buttonOpen.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer) ;
-                if (!drawer.isDrawerOpen(Gravity.LEFT)) {
-                    drawer.openDrawer(Gravity.LEFT);
-                }
-                if (main_panel.getPanelState()== SlidingUpPanelLayout.PanelState.COLLAPSED){   // 드로어 레이아웃을 열면 슬라이드 패널을 닫는다.
-                    main_panel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-                }
-            }
-        });
     }
 
 
+    @SuppressLint("WrongConstant")
     @UiThread
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) { // 처음 어플을 실행할 때 맵을 로드해주는 메소드
         Log.d( TAG, "onMapReady");
+
+        // 드로어 레이아웃 (사이드 메뉴)
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer) ;
+        drawer.setDrawerLockMode(0x00000001);
+        Button buttonOpen = (Button) findViewById(R.id.draw_side_menu_button) ;
+        buttonOpen.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!drawer.isDrawerOpen(Gravity.LEFT)) {
+                    drawer.openDrawer(Gravity.LEFT);
+                    main_panel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+
+                }
+
+            }
+        });
 
         TextView marker_main_title = (TextView) findViewById(R.id.main_title);
         TextView marker_title = (TextView) findViewById(R.id.text_title);
         TextView marker_info = (TextView) findViewById(R.id.text_info);
         TextView marker_address = (TextView) findViewById(R.id.text_address);
         TextView marker_main = (TextView) findViewById(R.id.text_main);
+        RatingBar marker_rating = (RatingBar) findViewById(R.id.ratingBar);
 
         mNaverMap = naverMap; // 네이버맵 생성
         mNaverMap.setLocationSource(mLocationSource); // 현위치 정보
@@ -136,62 +138,82 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         CompassView compassView = findViewById(R.id.compass);
         compassView.setMap(mNaverMap);
 
-        Marker marker = new Marker();
-        marker.setTag("마커1");
-        marker.setPosition(new LatLng(37.36135327233796, 127.96061019229224));
-        marker.setWidth(50);
-        marker.setHeight(70);
 
-        Marker marker1 = new Marker();
-        marker1.setTag("마커2");
-        marker1.setPosition(new LatLng(37.36099795000704, 127.9608173062845));
-        marker1.setWidth(50);
-        marker1.setHeight(70);
+        Executor executor = Executors.newFixedThreadPool(2);
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        marker.setMap(naverMap);
-        marker1.setMap(naverMap);
+        executor.execute(() -> {
+            // 백그라운드 스레드
 
-        marker.setOnClickListener(new Overlay.OnClickListener() {
-            @Override
-            public boolean onClick(@NonNull Overlay overlay) {
-                Log.v("태그","onClick");
+            try {
 
-                main_panel = (SlidingUpPanelLayout) findViewById(R.id.main_panel);
-                main_panel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED); // 패널을 접힌상태로 보여준다.
+                ObjectMapper objectMapper = new ObjectMapper();
+                HashMap<String, String> map = new HashMap<>();
 
-                marker_main_title.setText(getString(R.string.menu_main_title));
-                marker_title.setText(getString(R.string.menu_select_title));
-                marker_info.setText(getString(R.string.menu_select_info));
-                marker_address.setText(getString(R.string.menu_select_address));
-                marker_main.setText(getString(R.string.menu_select_main));
+                String json = objectMapper.writeValueAsString(map);
 
-                return true;
+                HttpUtil util = new HttpUtil();
+                util.execute(json);
 
+                JSONArray jsonArray = util.get();
+
+
+                markers = new ArrayList<>();
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    obj = jsonArray.getJSONObject(i);
+                    marker = new Marker();
+                    marker.setTag(obj.getInt("store_code"));
+                    marker.setPosition(new LatLng(Double.parseDouble(obj.getString("store_latitude")), Double.parseDouble(obj.getString("store_longitude"))));
+                    marker.setWidth(50);
+                    marker.setHeight(70);
+                    marker.setOnClickListener(new Overlay.OnClickListener() {
+                        @Override
+                        public boolean onClick(@NonNull Overlay overlay) {
+                            main_panel = (SlidingUpPanelLayout) findViewById(R.id.main_panel);
+                            main_panel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                            try {
+                                obj = jsonArray.getJSONObject((Integer) overlay.getTag()-1);
+                                marker_main_title.setText(obj.getString("store_name"));
+                                marker_title.setText(obj.getString("store_hours"));
+                                marker_info.setText(obj.getString("store_info"));
+                                marker_address.setText(obj.getString("store_address"));
+                                marker_main.setText(obj.getString("store_explanation"));
+                                marker_rating.setRating(Float.parseFloat(obj.getString("store_rating")));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }
+                    });
+                    markers.add(marker);
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+
+            handler.post(() -> {
+                // 메인 스레드
+                for (Marker marker : markers) {
+                    marker.setMap(naverMap);
+
+                }
+
+            });
         });
 
-        marker1.setOnClickListener(new Overlay.OnClickListener() {
-            @Override
-            public boolean onClick(@NonNull Overlay overlay) {
-                Log.v("태그","onClick");
 
-                main_panel = (SlidingUpPanelLayout) findViewById(R.id.main_panel);
-                main_panel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED); // 패널을 접힌상태로 보여준다.
 
-                marker_main_title.setText(getString(R.string.menu_main_title1));
-                marker_title.setText(getString(R.string.menu_select_title1));
-                marker_info.setText(getString(R.string.menu_select_info1));
-                marker_address.setText(getString(R.string.menu_select_address1));
-                marker_main.setText(getString(R.string.menu_select_main1));
 
-                return true;
-            }
-        });
 
         // 맵 클릭시 호출되는 메소드
         naverMap.setOnMapClickListener(new NaverMap.OnMapClickListener() {
             @Override
-            public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
+            public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) { // 맵 클릭시 호출되는 메소드
                 Log.v("태그", "MapClick");
                 if (main_panel.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){ // 맵 클릭시 패널을 숨긴다.
                     main_panel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
@@ -227,17 +249,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onDestroy();
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

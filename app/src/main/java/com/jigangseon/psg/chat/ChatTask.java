@@ -15,7 +15,7 @@ import java.net.URL;
 public class ChatTask extends AsyncTask<String, Void, String> {
     //    public static String ip ="localhost:8082"; //자신의 IP번호
     String sendMsg, receiveMsg;
-    String serverip = "http://172.18.160.1:8088/androidServer/connection.jsp"; // 연결할 jsp주소
+    String serverip = "http://172.18.160.1:9099/androidServer/connection.jsp"; // 연결할 jsp주소
 
     ChatTask(String sendmsg){
         this.sendMsg = sendmsg;
