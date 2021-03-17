@@ -19,35 +19,44 @@
 
     <!-- 호떡 -->
 
-    <ImageView
-        android:id="@+id/side_profile"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/side_profile_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="50dp"
-        android:src="@drawable/user"
-        app:layout_constraintBottom_toTopOf="@+id/side_menu1"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/side_profile_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/side_profile_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:text="로그인을 해주세요"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.011"
-        app:layout_constraintStart_toEndOf="@+id/side_profile"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:onClick="clickMenu"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/side_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/side_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:text="로그인을 해주세요"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/side_profile"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/side_profile_info"

@@ -1,40 +1,71 @@
 package com.jigangseon.psg.subway_line;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jigangseon.psg.R;
 import com.jigangseon.psg.search.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class Subway_fragment_line_6 extends ListFragment {
+    private final static String TAG = "ListPlayersFragment";
     private ListView subwayList;
     private Subway_ListViewAdapter adapter;
-    String[] subway_line_6 = new String[]{"고려대","공덕","광흥창","구산","녹사평","대흥","독바위","돌곶이","동묘앞","디지털미디어시티","마포구청","망원","버티고개","보문","봉화산","불광","삼각지","상수","상월곡","새절","석계","신내","신당","안암","약수","역촌","연신내","월곡","월드컵경기장","응암","이태원","증산","창신","청구","태릉입구","한강진","합정","화랑대","효창공원앞"
-    };
-
+    public boolean test = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         //Adapter 생성 및 Adapter 지정
         adapter = new Subway_ListViewAdapter();
         setListAdapter(adapter);
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            HashMap<String, String> map = new HashMap<>();
 
-        //첫 번째 아이템 추가
+            String json = objectMapper.writeValueAsString(map);
 
-        for (int i=0; i< subway_line_6.length; i++){
-            adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.subway_line_6),subway_line_6[i]);
+            Search_HttpUtil util = new Search_HttpUtil();
 
+
+            util.execute(json);
+
+            JSONArray jsonArray = util.get();
+            for(int i= 0; i<jsonArray.length(); i++){
+                JSONObject obj = jsonArray.getJSONObject(i);
+                if(obj.getString("subway_line").equals("6호선")){
+                    Log.i("subway_Tb",obj.getString("subway_name"));
+                    adapter.addItem(ContextCompat.getDrawable(getActivity(),R.drawable.subway_line_6),obj.getString("subway_name"));
+                }
+            }
         }
-
-
-
-
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
+        Subway_fragment_list_Click fragment_list_click = new Subway_fragment_list_Click();
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.subway_fragment,fragment_list_click);
+        transaction.commit();
+
+
+
+    }
 }

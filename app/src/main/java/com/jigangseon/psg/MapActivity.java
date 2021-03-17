@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jigangseon.psg.find.MainActivity;
 import com.jigangseon.psg.search.Search;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
@@ -260,13 +262,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         int id = view.getId();
         ConstraintLayout constraintLayout = findViewById(id);
 
-
             String[] store_cate = new String[]{"붕어빵","호떡","떡볶이","다코야키","계란빵","전 등 포차메뉴","기타"};
 
 //            for (int i =0; i<markers.size();i++) {
                 switch (id) {
+                    //로그인쪽 누르는것
+                    case R.id.side_profile_layout:
+                        Toast.makeText(context, "함께 먹을 사람 찾기", Toast.LENGTH_SHORT).show();
+                        Intent side_profile_layout = new Intent(this,LoginActivity.class);
+                        startActivity(side_profile_layout);
+                        break;
                     case R.id.side_menu1:
                         Toast.makeText(context, "함께 먹을 사람 찾기", Toast.LENGTH_SHORT).show();
+                        Intent side_menu1 = new Intent(this,MainActivity.class);
+                        startActivity(side_menu1);
                         // 강이 레이아웃으로 인텐트
                         break;
 

@@ -43,6 +43,8 @@
             </intent-filter>-->
         </activity>
         <activity android:name=".find.MainActivity"></activity>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".Email_login"/>
         <activity android:name=".search.Search">
 
             <!--

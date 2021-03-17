@@ -14,5 +14,6 @@
     <color name="toolbar_color">#00000000</color>
 
     <!--한강 이전에 미추가한 부분-->
-    <color name="emaillogin">#D280D3</color>
+    <color name="email_login">#D280D3</color>
+    <color name="sing_up">#C158C3</color>
 </resources>

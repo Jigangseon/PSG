@@ -64,7 +64,8 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/draw_side_menu_button"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    android:stateListAnimator="@null"/>
 
                 <com.naver.maps.map.widget.CompassView
                     android:id="@+id/compass"

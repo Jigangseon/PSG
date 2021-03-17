@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.ApiErrorCode;
+import com.kakao.usermgmt.LoginButton;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
@@ -19,8 +22,18 @@ import com.kakao.util.exception.KakaoException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private SessionCallback sessionCallback;
 
+    //이메일 버튼
+    Button embt;
+    //회원가입 버튼
+    Button sign_up_button;
+    //카카오 버튼
+    LoginButton kakao_button;
+    //카카오버튼을 위한 페이크 이미지
+    ImageView fakekakao;
+    TextView no_login;
+
+    private SessionCallback sessionCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +55,60 @@ public class LoginActivity extends AppCompatActivity {
         //네이버, 구글 등의 다른 로그인 API를 같이 사용하는 경우, 이 콜백 제거를 안해주면 로그아웃 작업에서
         //문제가 생긴다. (*실제 경험함이래요.. 로그아웃부분에서 문제가 발생했는지 자동 로그인에서 문제가
         //발생했는지 정확히 기억은 안나지만 꽤 크리티컬한 오류가 발생한다)
-        Button embt = (Button)findViewById(R.id.emailbutton);
-        embt.setOnClickListener(new View.OnClickListener() {
+
+       /* embt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EmailLogin.class);
                 startActivity(intent);
             }
         });
+*/
+
+
+
+    /*    fakekakao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.fake_kakao:
+                        kakao_button.performClick();
+                                break;
+                }
+            }
+        });*/
+
+
+        embt = (Button)findViewById(R.id.email_button);
+        sign_up_button = findViewById(R.id.sign_up_button);
+        kakao_button = findViewById(R.id.kakao_login_button);
+        fakekakao = findViewById(R.id.fake_kakao);
+        no_login = findViewById(R.id.no_login);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.fake_kakao:
+                        kakao_button.performClick();
+                        break;
+                    case R.id.email_button:
+                        Intent intent = new Intent(getApplicationContext(), Email_login.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.sign_up_button:
+                        Toast.makeText(LoginActivity.this,"회원가입버튼",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.no_login:
+                        Toast.makeText(LoginActivity.this,"회원가입버튼 없이",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+        fakekakao.setOnClickListener(onClickListener);
+        embt.setOnClickListener(onClickListener);
+        sign_up_button.setOnClickListener(onClickListener);
+        no_login.setOnClickListener(onClickListener);
     }
 
     @Override
