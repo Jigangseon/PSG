@@ -18,7 +18,7 @@ public class Search_HttpUtil extends AsyncTask<String, Void, JSONArray> {
         JSONArray memberJsonArr = null;
         try {
             //HttpURLConnection을 이용해 url에 연결하기 위한 설정
-            String url = "http://172.30.1.47:8077/Subway_line/Conffddd";
+            String url = "http://15.164.67.3:8080/seonrae/selectSubway";
             URL obj = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
 

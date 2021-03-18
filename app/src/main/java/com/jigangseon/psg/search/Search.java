@@ -110,7 +110,7 @@ public class Search extends AppCompatActivity {
         line_1.setLayoutParams(layoutParams);
 
 
-        ImageView line[] = new ImageView[19];
+        ImageView line[] = new ImageView[22];
         for (i = 0; i < line.length; i++) {
 
             line[i] = new ImageView(this);

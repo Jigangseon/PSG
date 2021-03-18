@@ -29,7 +29,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jigangseon.psg.find.MainActivity;
 import com.jigangseon.psg.search.Search;
+import com.jigangseon.psg.subway_line.Subway_fragment_line_1;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraAnimation;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
@@ -78,6 +81,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Marker marker;
     private List<Marker> markers;
 
+    //한강 위도 경도 담을 String 변수 초기화 해줌
+    private double subway_latitude = 0;
+    private double subway_longitude = 0;
+
+    //카메라 이동 변수
+    CameraUpdate subway_camera_update;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +108,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
         main_panel = (SlidingUpPanelLayout)findViewById(R.id.main_panel);
+
+
+
+
+
 
     }
 
@@ -134,10 +149,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mNaverMap = naverMap; // 네이버맵 생성
         mNaverMap.setLocationSource(mLocationSource); // 현위치 정보
 
+
         // 기본 UI셋팅
         uiSettings = mNaverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true); // 현재위치 트래킹 버튼
         uiSettings.setCompassEnabled(false); // 나침반
+        uiSettings.setScaleBarEnabled(true);
         CompassView compassView = findViewById(R.id.compass);
         compassView.setMap(mNaverMap);
 
@@ -214,6 +231,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
+
         // 맵 클릭시 호출되는 메소드
         naverMap.setOnMapClickListener(new NaverMap.OnMapClickListener() {
             @Override
@@ -232,7 +250,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         main_panel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN); // 처음에 맵을 로드할때 패널이 숨겨져 있는 상태로 로드
 
 
-    }
+
+
+    }//End onMapReady();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { // 권한을 확인하는 메소드
@@ -242,6 +262,43 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
+                //Face
+                //위치를 추적하면서 카메라의 좌표와 베어링도 따라 움직이는 모드.
+                //Follow
+                //위치를 추적하면서 카메라도 따라 움직이는 모드.
+                //NoFollow
+                //위치는 추적하지만 지도는 움직이지 않는 모드.
+                //None
+                //위치 추적을 사용하지 않는 모드.
+
+            }
+
+            //한강이 작업함
+            Intent Subway_Intent = getIntent();
+            //인텐트 값 불러옴
+//        if(Subway_Intent !=null){
+            //인텐트가 널이 아닐경우
+            subway_latitude = Subway_Intent.getDoubleExtra("subway_latitude",1);
+            subway_longitude = Subway_Intent.getDoubleExtra("subway_longitude",1);
+//            System.out.print(subway_latitude+"\n");
+//            System.out.print(subway_longitude+"\n");
+            //위에 두개 값이 둘다 널이 아닐때
+            if(subway_latitude !=1 && subway_longitude !=1){
+                Log.i("if","subway_latitude !=1 && subway_longitude !=1");
+                /*System.out.print(subway_latitude+"\n");
+                System.out.print(subway_longitude+"\n");*/
+//                uiSettings.setLocationButtonEnabled(false);
+                Log.i("mNaverMap.getLocationTrackingMode",""+mNaverMap.getLocationTrackingMode());
+                Log.i("LocationTrackingMode.Follow",""+LocationTrackingMode.Follow);
+                if(mNaverMap.getLocationTrackingMode()== LocationTrackingMode.Follow){
+//                    mNaverMap.setLocationSource();
+                    Log.i("if","mNaverMap.getLocationTrackingMode()== LocationTrackingMode.Follow");
+                    mNaverMap.setLocationTrackingMode(LocationTrackingMode.None);
+                    subway_camera_update = CameraUpdate.scrollAndZoomTo(new LatLng(subway_latitude,subway_longitude),15);
+                    mNaverMap.moveCamera(subway_camera_update);
+                }
+
             }
         }
     }
