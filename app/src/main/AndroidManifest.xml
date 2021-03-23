@@ -55,6 +55,7 @@
             </intent-filter>
             -->
         </activity>
+        <activity android:name=".search.direct_input"  />
         <activity android:name=".MyPageActivity">
 
             <!--

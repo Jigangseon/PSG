@@ -29,8 +29,10 @@ public class direct_input_SearchAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public String getItem(int position) {
+        String context;
+        context = list.get(position);
+        return context;
     }
 
     @Override
@@ -54,7 +56,10 @@ public class direct_input_SearchAdapter extends BaseAdapter {
         // 리스트에 있는 데이터를 리스트뷰 셀에 뿌린다.
         viewHolder.label.setText(list.get(position));
 
+
+
         return convertView;
+
     }
 
     class ViewHolder{

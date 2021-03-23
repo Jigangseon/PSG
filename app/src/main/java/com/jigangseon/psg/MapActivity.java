@@ -26,7 +26,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import com.jigangseon.psg.find.MainActivity;
 import com.jigangseon.psg.search.Search;
 import com.jigangseon.psg.subway_line.Subway_fragment_line_1;
@@ -51,8 +53,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import static java.lang.Math.acos;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.toRadians;
 
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -88,6 +96,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //카메라 이동 변수
     CameraUpdate subway_camera_update;
 
+    //가게 추가하기
+    Button add_store;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +122,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         main_panel = (SlidingUpPanelLayout)findViewById(R.id.main_panel);
 
 
+        add_store = (Button) findViewById(R.id.add_store);
+        add_store.setVisibility(View.GONE);
 
 
 
@@ -277,32 +291,77 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             //한강이 작업함
             Intent Subway_Intent = getIntent();
             //인텐트 값 불러옴
-//        if(Subway_Intent !=null){
-            //인텐트가 널이 아닐경우
             subway_latitude = Subway_Intent.getDoubleExtra("subway_latitude",1);
             subway_longitude = Subway_Intent.getDoubleExtra("subway_longitude",1);
-//            System.out.print(subway_latitude+"\n");
-//            System.out.print(subway_longitude+"\n");
             //위에 두개 값이 둘다 널이 아닐때
             if(subway_latitude !=1 && subway_longitude !=1){
                 Log.i("if","subway_latitude !=1 && subway_longitude !=1");
-                /*System.out.print(subway_latitude+"\n");
-                System.out.print(subway_longitude+"\n");*/
-//                uiSettings.setLocationButtonEnabled(false);
                 Log.i("mNaverMap.getLocationTrackingMode",""+mNaverMap.getLocationTrackingMode());
                 Log.i("LocationTrackingMode.Follow",""+LocationTrackingMode.Follow);
                 if(mNaverMap.getLocationTrackingMode()== LocationTrackingMode.Follow){
-//                    mNaverMap.setLocationSource();
                     Log.i("if","mNaverMap.getLocationTrackingMode()== LocationTrackingMode.Follow");
                     mNaverMap.setLocationTrackingMode(LocationTrackingMode.None);
-                    subway_camera_update = CameraUpdate.scrollAndZoomTo(new LatLng(subway_latitude,subway_longitude),15);
+
+                    LatLng subway_click = new LatLng(subway_latitude,subway_longitude);
+                    subway_camera_update = CameraUpdate.scrollAndZoomTo(subway_click,15);
                     mNaverMap.moveCamera(subway_camera_update);
+
+
+                    try{
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        HashMap<String, String> map = new HashMap<>();
+
+                        String json = objectMapper.writeValueAsString(map);
+
+                        Map_HttpUtil util = new Map_HttpUtil();
+                        util.execute(json);
+
+                        JSONArray check_jsonArray = util.get();
+                        for(int i=0; i<check_jsonArray.length();i++){
+                            JSONObject check_obj = check_jsonArray.getJSONObject(i);
+                            int check = check_obj.getInt("store_code");
+
+
+                            switch (check){
+                                default:
+                                    LatLng check_LatLng = new LatLng(check_obj.getDouble("store_latitude"),check_obj.getDouble("store_longitude"));
+                                    double distance = subway_click.distanceTo(check_LatLng)/1000; // KM
+                                    Log.i("distance",""+distance);
+                                    if (distance >=1){
+
+                                        add_store.setVisibility(View.VISIBLE);
+                                        Toast.makeText(getApplicationContext(),"찾는 가게가 없으신가요? 가게를 추가해보세요",Toast.LENGTH_SHORT).show();
+                                        add_store.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                add_store.setVisibility(View.GONE);
+                                            }
+                                        });
+
+                                    }
+                                    break;
+                            }
+                        }
+
+
+                    }catch (ExecutionException | InterruptedException | JsonProcessingException | JSONException e){
+
+                    }
+
+
                 }
 
             }
         }
     }
 
+
+    public double check_marker(double latitude, double longitude, double marker_latitude, double marker_longitude){
+
+
+
+        return 0;
+    }
 
 
     @Override
@@ -463,6 +522,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void searchView(View v){  // 검색창
+
         Intent intent = new Intent(this, Search.class);
         startActivity(intent);
     }
