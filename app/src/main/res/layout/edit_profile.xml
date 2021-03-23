@@ -10,7 +10,7 @@
     <!-- 툴바 추가 -->
     <!-- 툴바 레이아웃 불러오기 -->
     <include
-        layout="@layout/sign_in_toolbar"
+        layout="@layout/edit_profile_toolbar"
         android:id="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,39 +122,17 @@
         app:layout_constraintTop_toBottomOf="@+id/et_name"
         android:background="@drawable/edittext_sign_in_rectangle"/>
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/et_agree0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="146dp"
-        android:text="이용약관(필수)"
-        app:layout_constraintEnd_toEndOf="@+id/et_invite"
-        app:layout_constraintStart_toStartOf="@+id/et_invite"
-        app:layout_constraintTop_toBottomOf="@+id/et_invite"
-        />
-
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/et_agree1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="개인정보 수집 및 이용에 대한 안내(필수)"
-        app:layout_constraintEnd_toEndOf="@+id/et_invite"
-        app:layout_constraintStart_toStartOf="@+id/et_invite"
-        app:layout_constraintTop_toBottomOf="@+id/et_invite"
-        />
 
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="135dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/sign_in_button"
-        app:layout_constraintEnd_toEndOf="@+id/et_agree1"
-        app:layout_constraintStart_toStartOf="@+id/et_agree1"
-        app:layout_constraintTop_toBottomOf="@+id/et_agree1"
+        app:layout_constraintEnd_toEndOf="@+id/et_invite"
+        app:layout_constraintStart_toStartOf="@+id/et_invite"
+        app:layout_constraintTop_toBottomOf="@+id/et_invite"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

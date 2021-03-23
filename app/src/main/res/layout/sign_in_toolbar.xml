@@ -17,10 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:text="@string/my_page_toolbar_title">
+            android:text="@string/sign_in_toolbar_title">
 
         </TextView>
 
     </androidx.appcompat.widget.Toolbar>
-
+기
 </androidx.constraintlayout.widget.ConstraintLayout>
