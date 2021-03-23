@@ -39,4 +39,19 @@
     <string name="menu_select_info1">일요일 마다 휴무</string>
     <string name="menu_select_address1">상세주소는 이곳에 적습니다</string>
     <string name="menu_select_main1">메뉴 이름\n가격\n운영시간\n전화번호</string>
+
+
+    <!--  지윤  -->
+    <string name="sign_in_toolbar_title">회원 가입하기</string>
+    <string name="my_page_toolbar_title">마이 페이지</string>
+    <string name="edit_profile_title">프로필 수정</string>
+    <string name="customer_inquiry_title">문의 하기</string>
+
+    <string name="user_name">"<b>"닉네임"</b>"</string>
+    <string name="edit_profile">프로필 편집하기</string>
+
+    <string name="my_review">내가 쓴 리뷰</string>
+    <string name="add_shop">가게 추가 하기</string>
+    <string name="my_added_shop">내가 추가한 가게</string>
+    <string name="customer_inquiry">문의 하기</string>
 </resources>
